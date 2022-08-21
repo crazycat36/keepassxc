@@ -24,6 +24,7 @@
 #include "Clip.h"
 #include "Close.h"
 #include "Create.h"
+#include "DatabaseEdit.h"
 #include "Diceware.h"
 #include "Edit.h"
 #include "Estimate.h"
@@ -173,6 +174,7 @@ namespace Commands
         s_commands.insert(QStringLiteral("clip"), QSharedPointer<Command>(new Clip()));
         s_commands.insert(QStringLiteral("close"), QSharedPointer<Command>(new Close()));
         s_commands.insert(QStringLiteral("db-create"), QSharedPointer<Command>(new Create()));
+        s_commands.insert(QStringLiteral("db-edit"), QSharedPointer<Command>(new DatabaseEdit()));
         s_commands.insert(QStringLiteral("db-info"), QSharedPointer<Command>(new Info()));
         s_commands.insert(QStringLiteral("diceware"), QSharedPointer<Command>(new Diceware()));
         s_commands.insert(QStringLiteral("edit"), QSharedPointer<Command>(new Edit()));

@@ -29,9 +29,11 @@ const QCommandLineOption Create::DecryptionTimeOption =
                        QObject::tr("Target decryption time in MS for the database."),
                        QObject::tr("time"));
 
+const QCommandLineOption Create::SetKeyFileShortOption =
+    QCommandLineOption(QStringList() << "k", QObject::tr("Set the key file for the database."), QObject::tr("path"));
+
 const QCommandLineOption Create::SetKeyFileOption =
-    QCommandLineOption(QStringList() << "k"
-                                     << "set-key-file",
+    QCommandLineOption(QStringList() << "set-key-file",
                        QObject::tr("Set the key file for the database."),
                        QObject::tr("path"));
 
@@ -46,6 +48,7 @@ Create::Create()
     description = QObject::tr("Create a new database.");
     positionalArguments.append({QString("database"), QObject::tr("Path of the database."), QString("")});
     options.append(Create::SetKeyFileOption);
+    options.append(Create::SetKeyFileShortOption);
     options.append(Create::SetPasswordOption);
     options.append(Create::DecryptionTimeOption);
 }
@@ -87,10 +90,18 @@ QSharedPointer<Database> Create::initializeDatabaseFromOptions(const QSharedPoin
         key->addKey(passwordKey);
     }
 
-    if (parser->isSet(Create::SetKeyFileOption)) {
+    if (parser->isSet(Create::SetKeyFileOption) || parser->isSet(Create::SetKeyFileShortOption)) {
         QSharedPointer<FileKey> fileKey;
 
-        if (!Utils::loadFileKey(parser->value(Create::SetKeyFileOption), fileKey)) {
+        QString keyFilePath;
+        if (parser->isSet(Create::SetKeyFileShortOption)) {
+            qWarning("The -k option will be deprecated. Please use the --set-key-file option instead.");
+            keyFilePath = parser->value(Create::SetKeyFileShortOption);
+        } else {
+            keyFilePath = parser->value(Create::SetKeyFileOption);
+        }
+
+        if (!Utils::loadFileKey(keyFilePath, fileKey)) {
             err << QObject::tr("Loading the key file failed") << endl;
             return {};
         }

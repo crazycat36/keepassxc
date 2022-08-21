@@ -25,6 +25,7 @@ set(cli_SOURCES
         Create.cpp
         Command.cpp
         DatabaseCommand.cpp
+        DatabaseEdit.cpp
         Diceware.cpp
         Edit.cpp
         Estimate.cpp

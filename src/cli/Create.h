@@ -29,6 +29,7 @@ public:
     static QSharedPointer<Database> initializeDatabaseFromOptions(const QSharedPointer<QCommandLineParser>& parser);
 
     static const QCommandLineOption SetKeyFileOption;
+    static const QCommandLineOption SetKeyFileShortOption;
     static const QCommandLineOption SetPasswordOption;
     static const QCommandLineOption DecryptionTimeOption;
 };

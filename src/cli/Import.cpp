@@ -41,6 +41,7 @@ Import::Import()
     positionalArguments.append({QString("xml"), QObject::tr("Path of the XML database export."), QString("")});
     positionalArguments.append({QString("database"), QObject::tr("Path of the new database."), QString("")});
     options.append(Create::SetKeyFileOption);
+    options.append(Create::SetKeyFileShortOption);
     options.append(Create::SetPasswordOption);
     options.append(Create::DecryptionTimeOption);
 }
